@@ -1,6 +1,7 @@
 package com.company;
 
-
+import com.company.CalisanEkrani;
+import com.company.MyCalisanlar;
 
 public class GirisEkrani extends javax.swing.JFrame {
     MyCalisanlar islemler = new MyCalisanlar();

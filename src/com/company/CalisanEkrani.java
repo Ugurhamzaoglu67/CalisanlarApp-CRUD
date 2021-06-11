@@ -1,8 +1,5 @@
 package com.company;
 
-import com.company.Calisan;
-import com.company.MyCalisanlar;
-
 import java.util.ArrayList;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -45,6 +42,8 @@ public class CalisanEkrani extends javax.swing.JDialog {
         maas_alani = new javax.swing.JTextField();
         mesaj_yazisi = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        guncelle = new javax.swing.JButton();
+        sil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -64,6 +63,11 @@ public class CalisanEkrani extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        calisan_tablosu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calisan_tablosuMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(calisan_tablosu);
@@ -112,7 +116,7 @@ public class CalisanEkrani extends javax.swing.JDialog {
         maas_alani.setBackground(new java.awt.Color(255, 255, 255));
 
         mesaj_yazisi.setBackground(new java.awt.Color(255, 255, 255));
-        mesaj_yazisi.setForeground(new java.awt.Color(255, 0, 153));
+        mesaj_yazisi.setForeground(new java.awt.Color(102, 255, 0));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -120,6 +124,24 @@ public class CalisanEkrani extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        guncelle.setBackground(new java.awt.Color(255, 255, 255));
+        guncelle.setForeground(new java.awt.Color(0, 0, 0));
+        guncelle.setText("Güncelle");
+        guncelle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guncelleActionPerformed(evt);
+            }
+        });
+
+        sil.setBackground(new java.awt.Color(255, 255, 255));
+        sil.setForeground(new java.awt.Color(0, 0, 0));
+        sil.setText("Sil");
+        sil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                silActionPerformed(evt);
             }
         });
 
@@ -146,14 +168,17 @@ public class CalisanEkrani extends javax.swing.JDialog {
                                                                 .addComponent(dep_alani)
                                                                 .addComponent(maas_alani)))
                                                 .addGap(35, 35, 35)
-                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(guncelle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(sil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(mesaj_yazisi, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                                                         .addComponent(arama_cubugu)
                                                         .addComponent(jSeparator1))))
-                                .addContainerGap(434, Short.MAX_VALUE))
+                                .addGap(434, 434, 434))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,11 +195,13 @@ public class CalisanEkrani extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
-                                        .addComponent(soyad_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(soyad_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(guncelle))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3)
-                                        .addComponent(dep_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(dep_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(sil))
                                 .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel4)
@@ -224,6 +251,65 @@ public class CalisanEkrani extends javax.swing.JDialog {
 
         calisanGoruntule();
         mesaj_yazisi.setText("Yeni kullanıcı Eklendi...");
+
+    }
+
+    private void calisan_tablosuMouseClicked(java.awt.event.MouseEvent evt) {
+        int selectedRow = calisan_tablosu.getSelectedRow();
+
+        ad_alani.setText(model.getValueAt(selectedRow, 1).toString());
+        soyad_alani.setText(model.getValueAt(selectedRow, 2).toString());
+        dep_alani.setText(model.getValueAt(selectedRow, 3).toString());
+        maas_alani.setText(model.getValueAt(selectedRow, 4).toString());
+
+    }
+
+    private void guncelleActionPerformed(java.awt.event.ActionEvent evt) {
+        String ad = ad_alani.getText();
+        String soyad = soyad_alani.getText();
+        String departman = dep_alani.getText();
+        String maas = maas_alani.getText();
+
+        int selectedRow = calisan_tablosu.getSelectedRow();
+
+        if(selectedRow == -1){
+
+            if(model.getRowCount() == 0){
+                mesaj_yazisi.setText("Çalışanlar Tablosu Şuanda boş.");
+            }else {
+                mesaj_yazisi.setText("Lütfen Güncellenecek Bir çalışan seçin");
+            }
+
+        }else {
+
+            int id =(int) model.getValueAt(selectedRow, 0);
+
+            calisanlar.calisanGuncelle(id,ad,soyad,departman,maas);
+            calisanGoruntule();
+            mesaj_yazisi.setText("Çalışan başarıyla güncellendi...");
+        }
+
+    }
+
+    private void silActionPerformed(java.awt.event.ActionEvent evt) {
+        mesaj_yazisi.setText("");
+
+        int selectedRow = calisan_tablosu.getSelectedRow();
+
+        if(selectedRow == -1){
+            if(model.getRowCount() == 0){
+                mesaj_yazisi.setText("Çalışanlar tablosu şuanda boş.");
+            }else {
+                mesaj_yazisi.setText("Lütfen silinecek bir çalışan seçin.");
+            }
+        }
+        else {
+            int id = (int) model.getValueAt(selectedRow, 0);
+            calisanlar.calisanSil(id);
+            calisanGoruntule();
+            mesaj_yazisi.setText("Çalışan başarıyla Silindi...");
+        }
+
 
     }
 
@@ -293,6 +379,7 @@ public class CalisanEkrani extends javax.swing.JDialog {
     private javax.swing.JTextField arama_cubugu;
     private javax.swing.JTable calisan_tablosu;
     private javax.swing.JTextField dep_alani;
+    private javax.swing.JButton guncelle;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -302,6 +389,7 @@ public class CalisanEkrani extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField maas_alani;
     private javax.swing.JLabel mesaj_yazisi;
+    private javax.swing.JButton sil;
     private javax.swing.JTextField soyad_alani;
     // End of variables declaration
 }

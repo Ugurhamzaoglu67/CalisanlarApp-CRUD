@@ -1,7 +1,6 @@
 package com.company;
 
 
-import com.company.Calisan;
 import com.company.model.DatabaseConnection;
 
 import java.sql.*;
@@ -45,6 +44,46 @@ public class MyCalisanlar {
         } catch (SQLException ex) {
             Logger.getLogger(MyCalisanlar.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
+    }
+
+
+    // ÇALIŞAN GÜNCELLE
+    public void calisanGuncelle(int id, String ad, String soyad, String departman, String maas){
+        String sorgu = "Update calisanlar Set ad=?, soyad=?, departman=?, maas=? where id=?";
+
+        try {
+            preparedStatement = con.prepareStatement(sorgu);
+
+            preparedStatement.setString(1, ad);
+            preparedStatement.setString(2, soyad);
+            preparedStatement.setString(3, departman);
+            preparedStatement.setString(4, maas);
+
+            preparedStatement.setInt(5, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MyCalisanlar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    // ÇALIŞAN SİL
+    public void calisanSil(int id) {
+        String sorgu = "DELETE FROM calisanlar where id=?";
+
+        try {
+            preparedStatement = con.prepareStatement(sorgu);
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MyCalisanlar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 
@@ -101,8 +140,4 @@ public class MyCalisanlar {
             return null;
         }
     }
-
-
-
-
 }
