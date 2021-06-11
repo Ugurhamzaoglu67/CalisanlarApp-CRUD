@@ -15,7 +15,7 @@ public class MyCalisanlar {
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
 
-
+    //CONSTRUCTOR
     public MyCalisanlar(){
         String url = "jdbc:mysql://localhost:"+ DatabaseConnection.dbPort+"/"+DatabaseConnection.dbName+"?useUnicode=true&characterEncoding=utf8";
 
@@ -28,6 +28,27 @@ public class MyCalisanlar {
 
     }
 
+    // ÇALIŞAN EKLE
+    public void calisanEkle(String ad, String soyad, String departman, String maas){
+        String sorgu = "INSERT INTO calisanlar (ad,soyad,departman,maas) VALUES(?,?,?,?)";
+
+        try {
+            preparedStatement = con.prepareStatement(sorgu);
+            preparedStatement.setString(1, ad);
+            preparedStatement.setString(2, soyad);
+            preparedStatement.setString(3,departman);
+            preparedStatement.setString(4, maas);
+
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MyCalisanlar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    // GİRİS YAP
     public boolean girisYap(String kullanici_adi, String parola) {
         String sorgu ="Select * from adminler where username = ? and password = ?";
 
@@ -49,6 +70,8 @@ public class MyCalisanlar {
 
     }
 
+
+    // ÇALIŞANLARI GETİR
     public ArrayList<Calisan> calisanlariGetir() {
 
         ArrayList<Calisan> cikti = new ArrayList<>();

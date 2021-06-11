@@ -1,8 +1,12 @@
 package com.company;
 
+import com.company.Calisan;
+import com.company.MyCalisanlar;
 
 import java.util.ArrayList;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 
 public class CalisanEkrani extends javax.swing.JDialog {
@@ -29,6 +33,18 @@ public class CalisanEkrani extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         calisan_tablosu = new javax.swing.JTable();
+        arama_cubugu = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        soyad_alani = new javax.swing.JTextField();
+        ad_alani = new javax.swing.JTextField();
+        dep_alani = new javax.swing.JTextField();
+        maas_alani = new javax.swing.JTextField();
+        mesaj_yazisi = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -59,25 +75,157 @@ public class CalisanEkrani extends javax.swing.JDialog {
             calisan_tablosu.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        arama_cubugu.setBackground(new java.awt.Color(255, 255, 255));
+        arama_cubugu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arama_cubuguActionPerformed(evt);
+            }
+        });
+        arama_cubugu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                arama_cubuguKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Ad :");
+
+        jLabel2.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel2.setText("Soyad : ");
+
+        jLabel3.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel3.setText("Departman :");
+
+        jLabel4.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel4.setText("Maas : ");
+
+        soyad_alani.setBackground(new java.awt.Color(255, 255, 255));
+
+        ad_alani.setBackground(new java.awt.Color(255, 255, 255));
+        ad_alani.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ad_alaniActionPerformed(evt);
+            }
+        });
+
+        dep_alani.setBackground(new java.awt.Color(255, 255, 255));
+
+        maas_alani.setBackground(new java.awt.Color(255, 255, 255));
+
+        mesaj_yazisi.setBackground(new java.awt.Color(255, 255, 255));
+        mesaj_yazisi.setForeground(new java.awt.Color(255, 0, 153));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Ekle");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
-                                .addGap(21, 21, 21))
+                                .addGap(67, 67, 67)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel2)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(8, 8, 8)
+                                                                .addComponent(jLabel1)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(ad_alani, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(soyad_alani, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                                                                .addComponent(dep_alani)
+                                                                .addComponent(maas_alani)))
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(mesaj_yazisi, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                                                        .addComponent(arama_cubugu)
+                                                        .addComponent(jSeparator1))))
+                                .addContainerGap(434, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(190, Short.MAX_VALUE)
+                                .addContainerGap(42, Short.MAX_VALUE)
+                                .addComponent(arama_cubugu, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(ad_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(soyad_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(dep_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(maas_alani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addComponent(mesaj_yazisi, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72))
+                                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>
+
+
+    public void dinamikAra(String ara){
+
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(model);
+        calisan_tablosu.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(ara));
+    }
+
+    private void arama_cubuguActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void arama_cubuguKeyReleased(java.awt.event.KeyEvent evt) {
+        String ara = arama_cubugu.getText();
+
+        dinamikAra(ara);
+    }
+
+    private void ad_alaniActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        mesaj_yazisi.setText("");
+
+        String ad =  ad_alani.getText();
+        String soyad  = soyad_alani.getText();
+        String departman = dep_alani.getText();
+        String maas = maas_alani.getText();
+
+        calisanlar.calisanEkle(ad,soyad,departman,maas);
+
+        calisanGoruntule();
+        mesaj_yazisi.setText("Yeni kullanıcı Eklendi...");
+
+    }
 
     /**
      * @param args the command line arguments
@@ -99,14 +247,6 @@ public class CalisanEkrani extends javax.swing.JDialog {
             }
         }
     }
-
-
-
-
-
-
-
-
 
 
     public static void main(String args[]) {
@@ -149,7 +289,19 @@ public class CalisanEkrani extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify
+    private javax.swing.JTextField ad_alani;
+    private javax.swing.JTextField arama_cubugu;
     private javax.swing.JTable calisan_tablosu;
+    private javax.swing.JTextField dep_alani;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField maas_alani;
+    private javax.swing.JLabel mesaj_yazisi;
+    private javax.swing.JTextField soyad_alani;
     // End of variables declaration
 }
