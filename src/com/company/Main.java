@@ -2,11 +2,14 @@ package com.company;
 
 import com.company.model.DatabaseConnection;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        DatabaseConnection dc = new DatabaseConnection();
+        MyCalisanlar calisanlar = new MyCalisanlar();
+
 
 
     }
